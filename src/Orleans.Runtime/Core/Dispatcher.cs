@@ -327,7 +327,7 @@ namespace Orleans.Runtime
                    incoming.IsAlwaysInterleave
                 || targetActivation.Blocking == null
                 || (targetActivation.Blocking.IsReadOnly && incoming.IsReadOnly)
-                || (schedulingOptions.AllowCallChainReentrancy && targetActivation.ActivationId.Equals(incoming.SendingActivation))
+                || (schedulingOptions.CallChainReentrancy == SchedulingOptions.CallChainReentrancyMode.Allow && targetActivation.ActivationId.Equals(incoming.SendingActivation))
                 || catalog.CanInterleave(targetActivation.ActivationId, incoming);
 
             return canInterleave;
@@ -343,7 +343,7 @@ namespace Orleans.Runtime
         /// </summary>
         private void MarkSameCallChainMessageAsInterleaving(ActivationData sendingActivation, Message outgoing)
         {
-            if (!schedulingOptions.AllowCallChainReentrancy)
+            if (schedulingOptions.CallChainReentrancy == SchedulingOptions.CallChainReentrancyMode.Off)
             {
                 return;
             }

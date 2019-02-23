@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Orleans;
@@ -30,7 +30,7 @@ namespace UnitTests.General
                     hostBuilder.Configure<SchedulingOptions>(options =>
                     {
                         options.PerformDeadlockDetection = true;
-                        options.AllowCallChainReentrancy = false;
+                        options.CallChainReentrancy = SchedulingOptions.CallChainReentrancyMode.Off;
                     });
                 }
             }

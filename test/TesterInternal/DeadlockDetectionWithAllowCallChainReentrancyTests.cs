@@ -29,7 +29,7 @@ namespace UnitTests.General
                     hostBuilder.Configure<SchedulingOptions>(options =>
                     {
                         options.PerformDeadlockDetection = true;
-                        options.AllowCallChainReentrancy = true;
+                        options.CallChainReentrancy = SchedulingOptions.CallChainReentrancyMode.Allow;
                     });
                 }
             }

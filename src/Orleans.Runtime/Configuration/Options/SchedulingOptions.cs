@@ -9,6 +9,21 @@ namespace Orleans.Configuration
     /// </summary>
     public class SchedulingOptions
     {
+        public enum CallChainReentrancyMode
+        {
+            Off,
+
+            /// <summary>
+            /// A-B-A and A-A reentrance is allowed.
+            /// </summary>
+            Allow,
+
+            /// <summary>
+            /// A-B-A reentrance is allowed but A-A is not.
+            /// </summary>
+            AllowExceptFromSelf,
+        }
+
         /// <summary>
         /// Whether or not to perform deadlock detection.
         /// </summary>
@@ -18,8 +33,8 @@ namespace Orleans.Configuration
         /// <summary>
         /// Whether or not to allow reentrancy for calls within the same call chain.
         /// </summary>
-        public bool AllowCallChainReentrancy { get; set; } = DEFAULT_ALLOW_CALL_CHAIN_REENTRANCY;
-        public const bool DEFAULT_ALLOW_CALL_CHAIN_REENTRANCY = true;
+        public CallChainReentrancyMode CallChainReentrancy { get; set; } = DEFAULT_CALL_CHAIN_REENTRANCY;
+        public const CallChainReentrancyMode DEFAULT_CALL_CHAIN_REENTRANCY = CallChainReentrancyMode.Allow;
 
         /// <summary>
         /// The MaxActiveThreads attribute specifies the maximum number of simultaneous active threads the scheduler will allow.

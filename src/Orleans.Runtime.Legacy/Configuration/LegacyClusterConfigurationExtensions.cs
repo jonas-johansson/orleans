@@ -242,7 +242,7 @@ namespace Orleans.Hosting
             services.AddOptions<SchedulingOptions>()
                 .Configure<GlobalConfiguration>((options, config) =>
                 {
-                    options.AllowCallChainReentrancy = config.AllowCallChainReentrancy;
+                    options.CallChainReentrancy = config.AllowCallChainReentrancy ? SchedulingOptions.CallChainReentrancyMode.Allow : SchedulingOptions.CallChainReentrancyMode.Off;
                     options.PerformDeadlockDetection = config.PerformDeadlockDetection;
                 })
                 .Configure<NodeConfiguration>((options, nodeConfig) =>
